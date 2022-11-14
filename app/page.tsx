@@ -1,7 +1,16 @@
 import Image from 'next/image'
+import getConfig from 'next/config'
 import styles from './page.module.css'
 
-export default function Home() {
+async function getData() {
+  const { serverRuntimeConfig } = getConfig()
+  // In real application, secrets will be passed into database client
+  // and db client will fetch data
+  return serverRuntimeConfig.secret
+}
+
+export default async function Home() {
+  const secret = await getData()
   return (
     <div className={styles.container}>
       <main className={styles.main}>
